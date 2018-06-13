@@ -39,6 +39,16 @@ function addItem(content) {
   count++;
 }
 
+function deleteItem(){
+  deleteID = req.body.id;
+  for(var i=0;i<lists.length;i++) {
+    if(lists[i].id == deleteID) {
+      lists.splice(id,1);
+    }
+    break
+  }
+}
+
 function updateItem(id, content) {
   lists.forEach((item, index) => {
     if(item.id == id) {
@@ -49,7 +59,7 @@ function updateItem(id, content) {
 }
 
 app.get('/index', function (req, res) {
-  res.sendFile(__dirname + "/pages/todolist.html");
+  res.sendFile(__dirname + "/pages/index.html");
 })
 
 app.get('/list', function (req, res) {
@@ -59,6 +69,12 @@ app.get('/list', function (req, res) {
 
 app.get('/add', function (req, res) {
   addItem(req.body.content);
+  toJSON();
+  res.send(JSONlists);
+})
+
+app.get('/delete', function (req, res) {
+  deleteItem();
   toJSON();
   res.send(JSONlists);
 })
