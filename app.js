@@ -58,8 +58,20 @@ function updateItem(id, content) {
   });
 }
 
+function search(sear_id){
+  var res_lists = [];
+  var count = 0;
+  for(var i =0; i<lists.length; i++){
+    if(lists[i].id == sear_id){
+      res_lists[count] = lists[i];
+      count++;
+    }
+  }
+  return res_lists;
+} 
+
 app.get('/index', function (req, res) {
-  res.sendFile(__dirname + "/pages/index.html");
+  res.sendFile(__dirname + "/index.html");
 })
 
 app.get('/list', function (req, res) {
@@ -83,6 +95,13 @@ app.get('/update', function (req, res) {
   var tempBody = req.body;
   updateItem(tempBody.id, tempBody.content);
   toJSON();
+  res.send(JSONlists);
+})
+
+app.get('/search', function(req, res) {
+  var search_id = req.body.id;
+  var res_lists = search(search_id);
+  toJSON(res_lists);
   res.send(JSONlists);
 })
 
