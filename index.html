@@ -1,0 +1,43 @@
+<html>
+    <head>
+            <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    </head>
+<body>
+<div id="header"><h1>事项管理</h1></div>
+<div id="list-box">
+    <table id="list-table">
+        <tr><th>id</th><th>事项</th></tr>
+        <tr><td>heheh</td><td>nan</td></tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+    //修改表格内容
+    $.get("/list",function(data,status){
+        flashTable(data);
+      });
+      $(document).on("click",".delete",function(ev){
+        var title = $(this).attr("title");
+        console.log(title);
+    });
+    //flashTable();
+    function flashTable(data){
+        var html = "<tr><th>id</th><th>事项</th></tr>";
+        //add
+        console.log(data);
+        //var dataStr = "[ {name:'1',value:'0'}, {name:'6101',value:'西安市'}, {name:'6102',value:'铜川市'}, {name:'6103',value:'宝鸡市'}, {name:'6104',value:'咸阳市'} ] ";
+        var dataObj=eval("("+data+")");//转换为json对象 
+        console.log(dataObj);
+        var length = dataObj.length;
+        for (var i=0;i<length;i++){
+            var string = "<tr><td>"+dataObj[i].id+"</td><td>"+dataObj[i].content+"</td><td class='delete' title='"+dataObj[i].id+"'>删除</td></tr>";
+            html += string;
+        }
+        console.log(html);
+        $("#list-table").html(html);
+        
+    }
+  });
+</script>
+</html>
