@@ -9,6 +9,11 @@
         <tr><th>id</th><th>事项</th></tr>
         <tr><td>heheh</td><td>nan</td></tr>
     </table>
+    <form id="add-form">
+        添加：
+        <input type="text" name="fname" />
+        <input type="submit" id="add-submit" value="Submit" />
+    </form>
 </div>
 </body>
 <script type="text/javascript">
@@ -20,6 +25,20 @@ $(document).ready(function(){
       $(document).on("click",".delete",function(ev){
         var title = $(this).attr("title");
         console.log(title);
+    });
+    $("#add-submit").click(function(){
+        var message = $("#add-form").find("input[name='fname']").val();
+        console.log(message);
+        message = "content="+message;
+        $.ajax({
+            url:"/add",
+            data:message,
+            type:"GET",
+            success:function(data){
+                flashTable(data);
+            }
+        });
+        return false;
     });
     //flashTable();
     function flashTable(data){
