@@ -1,3 +1,4 @@
+
 const express = require('express')
 const app = express()
 
@@ -37,11 +38,11 @@ function addItem(content) {
   count++;
 }
 
-function deleteItem(){
-  deleteID = req.query.id;
+function deleteItem(data){
+  console.log(data);
   for(var i=0;i<lists.length;i++) {
-    if(lists[i].id == deleteID) {
-      lists.splice(id,1);
+    if(lists[i].id == data) {
+      lists.splice(data,1);
     }
     break
   }
@@ -84,7 +85,7 @@ app.get('/add', function (req, res) {
 })
 
 app.get('/delete', function (req, res) {
-  deleteItem();
+  deleteItem(req.query.id);
   toJSON();
   res.send(JSONlists);
 })
@@ -103,6 +104,6 @@ app.get('/search', function(req, res) {
   res.send(JSONlists);
 })
 
-app.listen(3000, function () {
+app.listen(9999, function () {
   console.log('Example app listening on port 3000!')
 })
