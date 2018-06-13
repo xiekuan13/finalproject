@@ -40,7 +40,7 @@ function addItem(content) {
 }
 
 function deleteItem(){
-  deleteID = req.body.id;
+  deleteID = req.query.id;
   for(var i=0;i<lists.length;i++) {
     if(lists[i].id == deleteID) {
       lists.splice(id,1);
@@ -80,7 +80,7 @@ app.get('/list', function (req, res) {
 })
 
 app.get('/add', function (req, res) {
-  addItem(req.body.content);
+  addItem(req.query.content);
   toJSON();
   res.send(JSONlists);
 })
@@ -92,14 +92,14 @@ app.get('/delete', function (req, res) {
 })
 
 app.get('/update', function (req, res) {
-  var tempBody = req.body;
+  var tempBody = req.query;
   updateItem(tempBody.id, tempBody.content);
   toJSON();
   res.send(JSONlists);
 })
 
 app.get('/search', function(req, res) {
-  var search_id = req.body.id;
+  var search_id = req.query.id;
   var res_lists = search(search_id);
   toJSON(res_lists);
   res.send(JSONlists);
