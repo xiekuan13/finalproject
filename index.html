@@ -25,6 +25,16 @@ $(document).ready(function(){
       $(document).on("click",".delete",function(ev){
         var title = $(this).attr("title");
         console.log(title);
+        var message = "id="+title;
+        console.log(message);
+        $.ajax({
+            url:"/delete",
+            data:message,
+            type:"GET",
+            success:function(data){
+                flashTable(data);
+            }
+        });
     });
     $("#add-submit").click(function(){
         var message = $("#add-form").find("input[name='fname']").val();
